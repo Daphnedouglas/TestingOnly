@@ -1,0 +1,401 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+void mainmenu();
+void response();
+void custinfo();
+void showlogo();
+void waiting();
+void payment();
+
+
+// Structure representing a menu item with information (name, calorie content, price)
+struct MenuItem {
+    string name;
+    int calorie;
+    double price;
+};
+
+
+vector<MenuItem> foodMenu = {
+    {"Ceaser Salad", 100, 8.50},
+    {"Omelette", 154, 7.00},
+    {"Meat Sandwich", 252, 6.00},
+    {"Nasi Lemak", 398, 5.00},
+    {"Fried Rice", 245, 6.00},
+    {"Fried Noodle", 260, 5.00},
+    {"Chicken Grilled", 145, 10.00},
+    {"Fish and Chip", 650, 13.00},
+};
+
+vector<MenuItem> beveragesMenu = {
+    {"Water", 0, 1.00},
+    {"Apple Juice", 113, 3.50},
+    {"Orange Juice", 111, 4.00},
+    {"Green Tea", 2, 3.00},
+    {"Milkshake", 229, 5.00},
+};
+
+struct OrderItem {
+    string name;
+    int quantity;
+};
+void waiting(unsigned int mseconds)
+{
+    //this function to allow simulation of waiting 
+    //for printing receipt purposes
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
+
+void mainmenu() {
+    system("cls");
+    //calls showlogo Function
+    std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 MAIN MENU  \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
+    std::cout << "\n\n\t\t\t [ 1 ] Add FOOD to cart" << std::endl;
+    std::cout << "\t\t\t [ 2 ] Add BEVERAGES to cart" << std::endl;
+    std::cout << "\t\t\t [ 3 ] EXIT" << std::endl;
+   
+    std::cout << "\t\t\t ____________________________________________" << std::endl;
+    std::cout << "\n\n\t\t\t Enter choice: ";
+}
+void response() {
+    std::cout << "\n";
+    std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
+    std::cout << "\n\n\t\t\t [ C ] CONTINUE to Payment" << std::endl;
+    std::cout << "\t\t\t [ R ] CHANGE Items Quantity in My Cart" << std::endl;
+    std::cout << "\t\t\t [ A ] ADD Items in My Cart" << std::endl;
+    std::cout << "\t\t\t [ 3 ] EXIT" << std::endl;
+    std::cout << "\t\t\t ______________________________________________________" << std::endl;
+    std::cout << "\n\n\t\t\t Enter choice: ";
+
+}
+
+void responseInGoal() {
+    std::cout << "\n";
+    std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
+    std::cout << "\n\n\t\t\t [ C ] CONTINUE to Payment" << std::endl;
+    std::cout << "\t\t\t [ E ] EXIT" << std::endl;
+    std::cout << "\t\t\t ______________________________________________________" << std::endl;
+    std::cout << "\n\n\t\t\t Enter choice: ";
+
+}
+
+void responseEmptyCart() {
+    std::cout << "\n";
+    std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n";
+    std::cout << "\n\t\t\t [ A ] ADD New Items in My Cart" << std::endl;
+    std::cout << "\t\t\t [ E ] EXIT" << std::endl;
+    std::cout << "\t\t\t ______________________________________________________" << std::endl;
+    std::cout << "\n\n\t\t\t Enter choice: ";
+
+}
+
+void displayMenu(const vector<MenuItem>& menu, const string& category) { //edit design je
+    std::cout << "\n\t\t\t" << category << " Menu:\n";
+    std::cout << "\t\t\t-------------------------------------------------------------------------\n";
+    std::cout << "\t\t\tNo" << setw(15) << left << "Item Name" << setw(10) << left << "\t\tCalorie" << setw(15) << left << "Price per Unit\n";
+    std::cout << "\t\t\t---------------------------------------------\n";
+
+    for (int i = 0; i < menu.size(); ++i) {
+        std::cout << "\t\t\t" << i + 1 << setw(15) << left << menu[i].name << setw(10) << left << menu[i].calorie << "\t\tRM" << setw(9) << left << menu[i].price << "\n";
+    }
+
+    std::cout << "\t\t\t-------------------------------------------------------------------------\n";
+}
+void showlogo() {
+    std::cout << "\n\n";
+    std::cout << "\n\t\t\t\t *****    **      **  ********  *******  *******   ";
+    std::cout << "\n\t\t\t\t**     *   **    **      **     **       **        ";
+    std::cout << "\n\t\t\t\t**     *    **  **       **     **       **        ";
+    std::cout << "\n\t\t\t\t*******       **         **     *******  *******   ";
+    std::cout << "\n\t\t\t\t**     *      **         **     **            **   ";
+    std::cout << "\n\t\t\t\t**     *      **         **     **            **   ";
+    std::cout << "\n\t\t\t\t *****        **         **     *******  *******   ";
+    std::cout << "\n\n\t\t\t  + --------------------- HealthyBytes --------------------- + ";
+    std::cout << "\n\n\n\n\t\t\t\tWELCOME TO HEALTHYBYTES [Press ENTER to START] ";
+    std::cin.get();//get input ENTER
+    waiting(1500);// simulate waiting 
+    system("cls");//to clear all screen
+}
+
+
+void displayOrder(const vector<OrderItem>& orderItems) { //array 
+    cout << "\n\t\t\tYour Cart:\n";
+    cout << "\t\t\t--------------------------------------\n";
+    cout << "\t\t\tNo\t" << setw(15) << left << "Item Name" << setw(10) << left << "Quantity\n";
+    cout << "\t\t\t--------------------------------------\n";
+
+    for (int i = 0; i < orderItems.size(); ++i) {
+        cout << "\t\t\t" << i + 1 << "\t" << setw(15) << left << orderItems[i].name << setw(10) << left << orderItems[i].quantity << "\n";
+    }
+
+    cout << "\t\t\t--------------------------------------\n";
+}
+
+void payment(double FinalPrice, const vector<OrderItem>& orderItems) {
+    system("cls");
+    std::cout << "\n\t\t\t\t\tPAYMENT\n";
+
+    std::cout << "\t\t\t---------------------------------------\n";
+    std::cout << "\t\t\tNo\t" << setw(15) << left << "Item Name" << setw(10) << left << "\t     Quantity\n";
+    std::cout << "\t\t\t---------------------------------------\n";
+
+    for (int i = 0; i < orderItems.size(); ++i) {
+        cout << "\t\t\t" << i + 1 << "\t" << setw(15) << left << orderItems[i].name << "\t" << setw(25) << left << orderItems[i].quantity << "\n";
+    }
+
+    cout << "\t\t\t---------------------------------------\n";
+
+    std::cout << "\t\t\tTotal Price: RM" << FinalPrice << "\n";
+    std::cout << "\t\t\t---------------------------------------\n";
+    std::cout << "\t\t\t[A] Cash Payment\n";
+    std::cout << "\t\t\t[B] Online Payment\n";
+    std::cout << "\t\t\t---------------------------------------\n";
+    std::cout << "\t\t\tChoose payment method: ";
+}
+
+void info(string& name) {
+    string contactNo, tableNo;
+    int userMinCalorie, userMaxCalorie;
+    //header
+    std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 MY ACCOUNT \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2" << std::endl;
+    //require customer to enter their username
+    std::cout << "\n\t\t\t Enter Name: ";
+    std::cin >> name;
+    //require customer to enter their account num
+    std::cout << "\n\t\t\t Enter Contact Number: ";
+    std::cin >> contactNo;//get input
+    std::cout << "\n\t\t\t Enter Table No.:  ";
+    std::cin >> tableNo;//get input
+}
+int main() {
+    //declaration section
+    string name;
+    double totalCalorieFood = 0.0;
+    double totalPriceFood = 0.0;
+    double totalCalorieBeverages = 0.0;
+    double totalPriceBeverages = 0.0;
+    double FINALCalorie = 0.0;
+    double FINALPrice = 0.0;
+    FINALPrice = totalPriceFood + totalPriceBeverages;
+    vector<OrderItem> orderItems;
+    int userMinCalorie, userMaxCalorie;
+
+    // Where it starts 
+    showlogo();
+
+    info(name); // calls function info
+    std::cout << "\n\t\t\tHello " << name << ",Welcome to HealthyBytes !";
+    std::cout << "\n\t\t\tEnter your MINIMUM calorie goal: ";
+    cin >> userMinCalorie;
+    std::cout << "\n\t\t\tEnter your MAXIMUM calorie goal: ";
+    cin >> userMaxCalorie;
+
+
+    //declaration for FOOD & BEVERAGES LIST
+    int foodChoice, quantity;
+    int beverageChoice;
+    char ans;
+    int key;
+    do {
+    choose_again:
+        mainmenu();
+        cin >> key;
+ 
+        double totalFOOD = 0.0;
+        double totalBEVERAGES = 0.0;
+
+
+        system("cls");
+        if (key == 3) {
+            break;
+        }
+        else if (key == 1) {
+            displayMenu(foodMenu, "\t\t\tFood"); //display
+
+
+            std::cout << "\n\t\t\tEnter the food item number: ";
+            cin >> foodChoice;
+
+            std::cout << "\t\t\tEnter the quantity: ";
+            cin >> quantity;
+
+            totalCalorieFood += foodMenu[foodChoice - 1].calorie * quantity;
+            totalPriceFood += foodMenu[foodChoice - 1].price * quantity;
+
+
+            totalFOOD = totalCalorieFood;
+            orderItems.push_back({ foodMenu[foodChoice - 1].name, quantity });
+
+            std::cout << "\n\t\t\tYou added " << foodMenu[foodChoice - 1].name << " to Your Cart.\n";
+        }
+        else if (key == 2) {
+            //coding for keluar menu air
+            displayMenu(beveragesMenu, "\t\t\tBeverages");
+
+
+            std::cout << "\n\t\t\tEnter the beverage item number: ";
+            cin >> beverageChoice;
+
+            std::cout << "\t\t\tEnter the quantity: ";
+            cin >> quantity;
+
+            totalCalorieBeverages += beveragesMenu[beverageChoice - 1].calorie * quantity;
+            totalPriceBeverages += beveragesMenu[beverageChoice - 1].price * quantity;
+
+            totalBEVERAGES = totalCalorieBeverages;
+
+
+            orderItems.push_back({ beveragesMenu[beverageChoice - 1].name, quantity });
+
+            std::cout << "\n\t\t\tYou added " << beveragesMenu[beverageChoice - 1].name << " to Your Cart.\n";
+            displayOrder(orderItems);
+
+        }
+        else {
+            cout << "PLEASE CHOOSE AN OPTION!";
+
+        } //clsoe first loop
+
+        //Ask response whether want to add order again
+
+        char ans;
+        
+        std::cout << "\n\t\t\tDo you wish to order anything else? (y/n): ";
+        cin >> ans;
+        if (ans == 'y') {
+            goto choose_again;
+        }
+        else if (ans == 'n') {
+            //code to choose kira whether == < or >
+            system("cls");
+            displayOrder(orderItems);
+            double FINALcalorie;
+            FINALcalorie = totalBEVERAGES + totalFOOD;
+            //totalCalorie += beveragesMenu[beverageChoice - 1].calorie * quantity; //kira
+            std::cout << "\n\t\t\tYour total calories is " << FINALcalorie << ".";
+
+           
+            if (FINALcalorie > userMaxCalorie) {
+                //display message dulu
+                std::cout << "\n\t\t\tOh dear, it seems you have exceeded your calorie goal.\n\t\t\tWe encouraged you to remove some items to achieve your calorie goal!";
+            retry:
+                displayOrder(orderItems);
+                response(); //asking for response function
+               int key;
+               char res;
+                if (res == 'C') {
+                    payment();
+
+                }
+                else if (res == 'R') {
+                    //code to edit cart or remove item
+                    system("cls");
+                    displayOrder(orderItems); // display current items in cart
+                    int changeIndex;
+                    std::cout << "\n\t\t\tEnter the index of the item you want to remove or change quantity: ";
+                    cin >> changeIndex;
+
+                    if (changeIndex >= 1 && changeIndex <= orderItems.size()) {
+                        int newQuantity;
+                        std::cout << "\n\t\t\tEnter the new quantity (0 to remove): ";
+                        cin >> newQuantity;
+                        if (newQuantity == 0) {
+                            
+                            orderItems.erase(orderItems.begin() + (changeIndex - 1));
+                        }
+                        else if (newQuantity >= 1) {
+                            // Update the quantity of the selected item
+                            orderItems[changeIndex - 1].quantity = newQuantity;
+                        }
+                        cout << "YOUR CART LIST";
+                        displayOrder(orderItems);
+                        waiting(1500);
+                        goto retry;
+                    }
+                }
+                else if (res == 'A') {
+                    //code to add items 
+                    system("cls");
+                    goto choose_again;// go back to appear mainmenu
+                }
+                else if (key == 3){
+                    cout << "THANK YOU FOR COMING"; //program terminate
+                    break;
+                }
+                else {
+                    cout << "CHOOSE ONE OPTION";
+                    goto retry; //go back asking for response
+
+                }
+            } //continue loop for other condition
+            else if (FINALcalorie < userMaxCalorie) {
+                std::cout << "\n\t\t\tOh dear, it seems you does not exceeed your calorie goal.\n\t\t\tWe encouraged you to remove some items to achieve your calorie goal!";
+            retry_again:
+                displayOrder(orderItems);
+                response(); //asking for response function
+                char res;
+                int key;
+                if (res == 'C') {
+                    payment();
+
+                }
+                else if (res == 'R') {
+                    //code to edit cart or remove item
+                    system("cls");
+                    displayOrder(orderItems); // display current items in cart
+                    int changeIndex;
+                    std::cout << "\n\t\t\tEnter the index of the item you want to remove or change quantity: ";
+                    cin >> changeIndex;
+
+                    if (changeIndex >= 1 && changeIndex <= orderItems.size()) {
+                        int newQuantity;
+                        std::cout << "\n\t\t\tEnter the new quantity (0 to remove): ";
+                        cin >> newQuantity;
+                        if (newQuantity == 0) {
+
+                            orderItems.erase(orderItems.begin() + (changeIndex - 1));
+                        }
+                        else if (newQuantity >= 1) {
+                            // Update the quantity of the selected item
+                            orderItems[changeIndex - 1].quantity = newQuantity;
+                        }
+                        cout << "YOUR CART LIST";
+                        displayOrder(orderItems);
+                        waiting(1500);
+                        goto retry;
+                    }
+                }
+                else if (res == 'A') {
+                    //code to add items 
+                    system("cls");
+                    goto choose_again;// go back to appear mainmenu
+                }
+                
+                else if (key == 3) {
+                    cout << "THANK YOU FOR COMING"; //program terminate
+                    break;
+                }
+                else {
+                    cout << "CHOOSE ONE OPTION";
+                    goto retry_again; //go back asking for response
+
+                }
+
+            }
+            else {
+                cout << "You achieved your Goal!";
+                    responseInGoal();
+                payment();
+            }
+
+        }
+
+
+    } while (key != 3);
+}
