@@ -66,9 +66,9 @@ void mainmenu() {
 void response() {
     std::cout << "\n";
     std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
-    std::cout << "\n\n\t\t\t [ C ] CONTINUE to Payment" << std::endl;
-    std::cout << "\t\t\t [ R ] CHANGE Items Quantity in My Cart" << std::endl;
-    std::cout << "\t\t\t [ A ] ADD Items in My Cart" << std::endl;
+    std::cout << "\n\n\t\t\t [ 4 ] CONTINUE to Payment" << std::endl;
+    std::cout << "\t\t\t [ 5 ] CHANGE Items Quantity in My Cart" << std::endl;
+    std::cout << "\t\t\t [ 6 ] ADD Items in My Cart" << std::endl;
     std::cout << "\t\t\t [ 3 ] EXIT" << std::endl;
     std::cout << "\t\t\t ______________________________________________________" << std::endl;
     std::cout << "\n\n\t\t\t Enter choice: ";
@@ -78,8 +78,8 @@ void response() {
 void responseInGoal() {
     std::cout << "\n";
     std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2";
-    std::cout << "\n\n\t\t\t [ C ] CONTINUE to Payment" << std::endl;
-    std::cout << "\t\t\t [ E ] EXIT" << std::endl;
+    std::cout << "\n\n\t\t\t [ 4 ] CONTINUE to Payment" << std::endl;
+    std::cout << "\t\t\t [ 3 ] EXIT" << std::endl;
     std::cout << "\t\t\t ______________________________________________________" << std::endl;
     std::cout << "\n\n\t\t\t Enter choice: ";
 
@@ -88,7 +88,7 @@ void responseInGoal() {
 void responseEmptyCart() {
     std::cout << "\n";
     std::cout << std::endl << " \t\t\t \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2 CHOOSE USER \xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\xB2\n";
-    std::cout << "\n\t\t\t [ A ] ADD New Items in My Cart" << std::endl;
+    std::cout << "\n\t\t\t [ 6 ] ADD New Items in My Cart" << std::endl;
     std::cout << "\t\t\t [ E ] EXIT" << std::endl;
     std::cout << "\t\t\t ______________________________________________________" << std::endl;
     std::cout << "\n\n\t\t\t Enter choice: ";
@@ -201,7 +201,7 @@ int main() {
     int foodChoice, quantity;
     int beverageChoice;
     char ans;
-    int key;
+    char key;
     do {
     choose_again:
         mainmenu();
@@ -212,6 +212,7 @@ int main() {
 
 
         system("cls");
+        int res;
         if (key == 3) {
             break;
         }
@@ -264,7 +265,7 @@ int main() {
 
         //Ask response whether want to add order again
 
-        char ans;
+      /*  char ans;*/
         
         std::cout << "\n\t\t\tDo you wish to order anything else? (y/n): ";
         cin >> ans;
@@ -286,14 +287,14 @@ int main() {
                 std::cout << "\n\t\t\tOh dear, it seems you have exceeded your calorie goal.\n\t\t\tWe encouraged you to remove some items to achieve your calorie goal!";
             retry:
                 displayOrder(orderItems);
-                response(); //asking for response function
-               int key;
-               char res;
-                if (res == 'C') {
+                response();
+                cin >> res;//asking for response function
+               
+                if (res == 4) {
                     payment();
 
                 }
-                else if (res == 'R') {
+                else if (res == 5) {
                     //code to edit cart or remove item
                     system("cls");
                     displayOrder(orderItems); // display current items in cart
@@ -319,7 +320,7 @@ int main() {
                         goto retry;
                     }
                 }
-                else if (res == 'A') {
+                else if (res == 6) {
                     //code to add items 
                     system("cls");
                     goto choose_again;// go back to appear mainmenu
@@ -338,14 +339,15 @@ int main() {
                 std::cout << "\n\t\t\tOh dear, it seems you does not exceeed your calorie goal.\n\t\t\tWe encouraged you to remove some items to achieve your calorie goal!";
             retry_again:
                 displayOrder(orderItems);
-                response(); //asking for response function
-                char res;
-                int key;
-                if (res == 'C') {
+                response();
+                cin >> res;//asking for response function
+                int res;
+
+                if (res == 4) {
                     payment();
 
                 }
-                else if (res == 'R') {
+                else if (res == 5) {
                     //code to edit cart or remove item
                     system("cls");
                     displayOrder(orderItems); // display current items in cart
@@ -371,7 +373,7 @@ int main() {
                         goto retry;
                     }
                 }
-                else if (res == 'A') {
+                else if (res == 6) {
                     //code to add items 
                     system("cls");
                     goto choose_again;// go back to appear mainmenu
